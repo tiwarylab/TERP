@@ -204,7 +204,8 @@ def unfaithfulness_calc(k, N, data, predict_proba, best_parameters_master):
 
   asdasd = (data@TERP_SGD_parameters[best_model][:-1])
   corr_coef_master.append(np.corrcoef(labels.flatten(),asdasd)[0,1])
-
+  print('Unfaithfulness: ', TERP_SGD_unfaithfulness[best_model])
+  print('Relevant features: ', selected_features[np.nonzero(TERP_SGD_parameters[best_model][:-1])[0]])
 best_parameters_master = []
 best_unfaithfulness_master = []
 
@@ -237,7 +238,8 @@ for i in scan:
   min_sol.append(np.argmin(term(i,S,best_unfaithfulness_master)))
 
 counts = np.bincount(min_sol)
-print('most relevant features obtained at k = ', np.argmax(counts), ' model!')
+print(100*'-')
+print('most relevant features obtained at k = ', np.argmax(counts)+1, ' model!')
 ######
 endtime = time.time()
 monte_carlo_time = endtime - starttime
