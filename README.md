@@ -16,7 +16,7 @@ Getting TERP interpretation involves the following steps:
 -num_samples # size of the generated neighborhood
 -index # row index of the input (e.g, input_numeric) file whose prediction needs to be explained
 ```
-2. obtain black-box model prediction by passing generated neighborhood saved at DATA/make_prediction_numeric.npy and save the predicted results in a numpy array. Rows of this array should represent datapoints and columns should represent different classes. Note a numpy array DATA/TERP_numeric.npy is created also created which will be used in the next step
+2. obtain black-box model prediction by passing generated neighborhood saved at DATA/make_prediction_numeric.npy and save the predicted results in a numpy array. Rows of this array should represent datapoints and columns should represent different classes (e.g, neighborhood_state_probabilities.npy - see next step). Note a numpy array DATA/TERP_numeric.npy is created also created which will be used in the next step
 3. Form a feature sub-space by identifying less/irrelevant features by constructing a linear model
 ```
 !python TERP_SGD_library.py -TERP_numeric DATA/TERP_numeric.npy -pred_proba neighborhood_state_probabilities.npy -cutoff 0.99
@@ -33,7 +33,10 @@ Note: a numpy array selected_features.npy will be created at TERP_results/select
 
 All the options are the same as in step 1. However, pass the additional -selected_features flag to analyze the sub-space only
 ```
-5. Perform forward feature selection to obtain final result
+5. obtain black-box model prediction by passing generated neighborhood saved at DATA/make_prediction_numeric_2.npy and save the predicted results in a numpy array. Rows of this array should represent datapoints and columns should represent different classes (e.g, neighborhood_state_probabilities.npy - see next step). Note a numpy array DATA/TERP_numeric_2.npy is created also created which will be used in the next step
+6. Perform forward feature selection to obtain final result
 ```
-!python TERP_SGD_library_2.py -TERP_numeric DATA/TERP_numeric.npy -pred_proba neighborhood_state_probabilities.npy -selected_features TERP_results/selected_features.npy
+!python TERP_SGD_library_2.py -TERP_numeric DATA/TERP_numeric_2.npy -pred_proba neighborhood_state_probabilities_2.npy -selected_features TERP_results/selected_features.npy
+
+Note: -pred_proba #prediction probabilites file for this step should be different from the one passed in step 3 because the neighborhood has been regenerated
 ```
