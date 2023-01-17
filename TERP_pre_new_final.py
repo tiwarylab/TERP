@@ -202,10 +202,13 @@ def generate_neighborhood():
         temp = temp + numeric[index,:]
         temp[:,selected_features] = make_prediction_numeric
         make_prediction_numeric = copy.deepcopy(temp)
+        
+        np.save(save_directory + '/make_prediction_numeric_2.npy', make_prediction_numeric)            
+        np.save(save_directory + '/TERP_numeric_2.npy', TERP_numeric)    
 
-
-      np.save(save_directory + '/make_prediction_numeric.npy', make_prediction_numeric)            
-      np.save(save_directory + '/TERP_numeric.npy', TERP_numeric)    
+      else:
+        np.save(save_directory + '/make_prediction_numeric.npy', make_prediction_numeric)            
+        np.save(save_directory + '/TERP_numeric.npy', TERP_numeric)    
 
 
     if  '-input_periodic' in sys.argv:
