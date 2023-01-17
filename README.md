@@ -9,8 +9,10 @@ Getting TERP interpretation is a 4 step process:
 
 1. Feature selection: Generate neighborhood using TERP_gen_data.py
 ```
-!python /content/drive/MyDrive/TERP_new/TERP_pre_new_final.py -seed 1 --progress_bar -input_numeric $train_raw_loc -num_samples 5000 -index $x_picked_index
+!python TERP_pre_new_final.py -seed 1 --progress_bar -input_numeric $data_dir -num_samples 5000 -index $picked_index
+-dt
 ```
+
 
 2. Form a feature sub-space by identifying less/irrelevant features by constructing a linear model
 3. Generate a neighborhood by sampling the reduced feature space
