@@ -200,7 +200,7 @@ while stop==False:
   if zeta_loc==0:
     break
 
-np.save(results_directory + 'temp_zeta_kc.npy', np.column_stack((scan, min_sol_val, np.array(min_sol))))
+np.save(results_directory + '/temp_zeta_kc.npy', np.column_stack((scan, min_sol_val, np.array(min_sol))))
 counts = np.bincount(min_sol)
 print(100*'-')
 if np.argmax(counts)+1==k_array[-1]:

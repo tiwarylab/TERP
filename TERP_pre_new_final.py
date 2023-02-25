@@ -5,7 +5,7 @@ import numpy as np
 import os
 import sys
 import copy
-
+import pickle
 def generate_neighborhood():
 
     save_directory = 'DATA'
@@ -36,7 +36,11 @@ def generate_neighborhood():
         assert rows == numeric.shape[0], "Input data dimension mismatch..."
         numeric = numeric.reshape(rows,-1)
       if '-selected_features' in sys.argv:
-        selected_features = np.load(sys.argv[sys.argv.index('-selected_features') + 1])
+        feat_dir = sys.argv[sys.argv.index('-selected_features') + 1]
+        with open(feat_dir, "rb") as fp:   # Unpickling
+          feat_desc = pickle.load(fp)
+        selected_features = np.array(feat_desc[0])
+        tot_feat = feat_desc[1]
         input_numeric = numeric[:,selected_features]
       else:
         input_numeric = copy.deepcopy(numeric)
@@ -68,7 +72,11 @@ def generate_neighborhood():
         assert rows == sin.shape[0], "Input data dimension mismatch..."
         sin = sin.reshape(rows,-1)
       if '-selected_features' in sys.argv:
-        selected_features = np.load(sys.argv[sys.argv.index('-selected_features') + 1])
+        feat_dir = sys.argv[sys.argv.index('-selected_features') + 1]
+        with open(feat_dir, "rb") as fp:   # Unpickling
+          feat_desc = pickle.load(fp)
+        selected_features = np.array(feat_desc[0])
+        tot_feat = feat_desc[1]
         input_sin = sin[:,selected_features]
       else:
         input_sin = copy.deepcopy(sin)
@@ -83,7 +91,11 @@ def generate_neighborhood():
         assert rows == cos.shape[0], "Input data dimension mismatch..."
         cos = cos.reshape(rows,-1)
       if '-selected_features' in sys.argv:
-        selected_features = np.load(sys.argv[sys.argv.index('-selected_features') + 1])
+        feat_dir = sys.argv[sys.argv.index('-selected_features') + 1]
+        with open(feat_dir, "rb") as fp:   # Unpickling
+          feat_desc = pickle.load(fp)
+        selected_features = np.array(feat_desc[0])
+        tot_feat = feat_desc[1]
         input_cos = cos[:,selected_features]
       else:
         input_cos = copy.deepcopy(cos)
