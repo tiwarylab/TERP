@@ -234,7 +234,7 @@ else:
     range_theta_mast.append(np.array(charac_theta_mast)[i]-np.array(charac_theta_mast)[i-1])
 
   prime_model = np.argmin(np.array(range_theta_mast))
-print('k ::',prime_model+3,' is the best model ', 'at theta = ', charac_theta_mast[prime_model+2])
+print('k ::',prime_model+3,' is the best model ', 'at theta = ', charac_theta_mast[prime_model+1])
 np.save(results_directory + '/optimal_feature_weights.npy', np.absolute(np.array(best_parameters_converted)[prime_model+2])/np.sum(np.absolute(np.array(best_parameters_converted)[prime_model+2])))
 optimal_scores = np.array([best_unfaithfulness_master[prime_model+2], best_interp_master[prime_model+2]])
 np.save(results_directory + '/optimal_scores_unfaithfulness_interpretability.npy', optimal_scores)
