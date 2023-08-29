@@ -130,6 +130,6 @@ logger1.info(selected_features)
 with open(results_directory + '/selected_features.npy', "wb") as fp:
   pickle.dump([selected_features, data.shape[1]], fp)
 
-np.save(results_directory + '/weights_feature_selection.npy', weights)
+np.save(results_directory + '/similarity_feature_selection.npy', weights)
 np.save(results_directory + '/coefficients_feature_selection.npy', coefficients_selection)
 np.save(results_directory + '/intercept_feature_selection.npy', intercept_selection)
