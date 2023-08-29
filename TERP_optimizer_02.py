@@ -155,7 +155,7 @@ def unfaithfulness_calc(k, N, data, predict_proba, best_parameters_master):
     TERP_SGD_interp.append(interp(TERP_SGD_parameters[-1][:-1]))
     TERP_SGD_IFE = np.array(TERP_SGD_unfaithfulness)
 
-  np.save(results_directory + '/' + str(k) + '_feature_weights.npy', TERP_SGD_parameters)
+  np.save(results_directory + '/' + str(k) + '_feature_coefficients.npy', TERP_SGD_parameters)
   np.save(results_directory + '/' + str(k) + '_interpretability_scores.npy', TERP_SGD_interp)
   np.save(results_directory + '/' + str(k) + '_unfaithfulness_scores.npy', TERP_SGD_unfaithfulness)
 
@@ -195,8 +195,8 @@ for k in k_array:
   print(100*'-')
   unfaithfulness_calc(k, N, data, predict_proba, best_parameters_master)
 
-np.save(results_directory + '/neighborhood_weights_final.npy', weights)
-np.save(results_directory + '/feature_weights_final.npy', np.absolute(np.array(best_parameters_converted)))
+np.save(results_directory + '/neighborhood_similarity_final.npy', weights)
+np.save(results_directory + '/feature_coefficients_final.npy', np.array(best_parameters_converted))
 np.save(results_directory + '/unfaithfulness_scores_final.npy', np.array(best_unfaithfulness_master))
 np.save(results_directory + '/interpretability_scores_final.npy', np.array(best_interp_master))
 
@@ -235,7 +235,7 @@ else:
 
   prime_model = np.argmin(np.array(range_theta_mast))
 print('k ::',prime_model+3,' is the best model ', 'at theta = ', charac_theta_mast[prime_model+2])
-np.save(results_directory + '/optimal_feature_weights.npy', np.absolute(np.array(best_parameters_converted)[prime_model+2]))
+np.save(results_directory + '/optimal_feature_weights.npy', np.absolute(np.array(best_parameters_converted)[prime_model+2])/np.sum(np.absolute(np.array(best_parameters_converted)[prime_model+2])))
 optimal_scores = np.array([best_unfaithfulness_master[prime_model+2], best_interp_master[prime_model+2]])
 np.save(results_directory + '/optimal_scores_unfaithfulness_interpretability.npy', optimal_scores)
 ####
