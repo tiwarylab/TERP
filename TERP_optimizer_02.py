@@ -151,7 +151,7 @@ def unfaithfulness_calc(k, N, data, predict_proba, best_parameters_master):
     parameters[-1] = result_b
     TERP_SGD_parameters.append(parameters)
     residual = np.corrcoef(labels[:,0],(np.column_stack((data, np.ones((data.shape[0]))))@parameters[:]).reshape(-1,1)[:,0])[0,1]
-    TERP_SGD_unfaithfulness.append(1-residual)
+    TERP_SGD_unfaithfulness.append(1-np.absolute(residual))
     TERP_SGD_interp.append(interp(TERP_SGD_parameters[-1][:-1]))
     TERP_SGD_IFE = np.array(TERP_SGD_unfaithfulness)
 
