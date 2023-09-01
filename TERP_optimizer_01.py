@@ -77,7 +77,10 @@ if '-cutoff' in sys.argv:
   cutoff = float(sys.argv[sys.argv.index('-cutoff') + 1])
   logger1.info("Provided cutoff :: " + str(cutoff))
 else:
-  cutoff = 0.98
+  if TERP_input.shape[1]>50:
+    cutoff = 0.98
+  else:
+    cutoff = 1.00
   logger1.warning('Cutoff not provided. Defaulting to :: ' + str(cutoff))
 
 if '--euclidean' in sys.argv:
