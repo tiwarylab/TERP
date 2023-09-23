@@ -44,7 +44,6 @@ if '--nolog' in sys.argv:
 if '-TERP_input' in sys.argv:
   TERP_input = np.load(sys.argv[sys.argv.index('-TERP_input') + 1])
   rows = TERP_input.shape[0]
-  k_max = TERP_input.shape[1]
   neighborhood_data = TERP_input.reshape(rows,-1)
   logger1.info('Input data read successful ...')
 
@@ -103,6 +102,8 @@ if '-selected_features' in sys.argv:
   with open(feat_dir, "rb") as fp:   # Unpickling
      feat_desc = pickle.load(fp)
   selected_features = np.array(feat_desc[0])
+  neighborhood_data = neighborhood_data[:, selected_features]
+  k_max = neighborhood_data.shape[1]
   tot_feat = feat_desc[1]
   logger1.info("Feature selection results read successful!")
 else:
