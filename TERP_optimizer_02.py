@@ -241,6 +241,8 @@ else:
 np.save(results_directory + '/optimal_feature_weights.npy', np.absolute(np.array(best_parameters_converted)[prime_model+2])/np.sum(np.absolute(np.array(best_parameters_converted)[prime_model+2])))
 optimal_scores = np.array([best_unfaithfulness_master[prime_model+2], best_interp_master[prime_model+2]])
 np.save(results_directory + '/optimal_scores_unfaithfulness_interpretability.npy', optimal_scores)
+np.save(results_directory + '/charac_theta.npy', charac_theta_mast)
+np.save(results_directory + '/range_theta.npy', range_theta_mast)
 ####
 endtime = time.time()
 monte_carlo_time = endtime - starttime
