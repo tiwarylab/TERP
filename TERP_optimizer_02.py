@@ -168,7 +168,6 @@ def unfaithfulness_calc(k, N, data, predict_proba, best_parameters_master):
   temp_coef_2 = np.zeros((tot_feat))
   temp_coef_2[selected_features] = copy.deepcopy(temp_coef_1)
   best_parameters_converted.append(temp_coef_2)
-
   best_unfaithfulness_master.append(TERP_SGD_unfaithfulness[best_model])
 
   surrogate_pred = data@TERP_SGD_parameters[best_model][:-1]
@@ -236,8 +235,11 @@ else:
     range_theta_mast.append(np.array(charac_theta_mast)[i]-np.array(charac_theta_mast)[i-1])
 
   prime_model = np.argmin(np.array(range_theta_mast))
-  print('k ::',prime_model+3,' is the best model ', 'between theta ::: ', charac_theta_mast[prime_model+1], ' to ::: ', charac_theta_mast[prime_model+2])
-  
+  if prime_model+3 == N:
+    print('k ::',prime_model+3,' is the best model ', 'at theta ::: ', charac_theta_mast[prime_model+1])
+  else:
+    print('k ::',prime_model+3,' is the best model ', 'between theta ::: ', charac_theta_mast[prime_model+1], ' to ::: ', charac_theta_mast[prime_model+1])
+print(charac_theta_mast, range_theta_mast)
 np.save(results_directory + '/optimal_feature_weights.npy', np.absolute(np.array(best_parameters_converted)[prime_model+2])/np.sum(np.absolute(np.array(best_parameters_converted)[prime_model+2])))
 optimal_scores = np.array([best_unfaithfulness_master[prime_model+2], best_interp_master[prime_model+2]])
 np.save(results_directory + '/optimal_scores_unfaithfulness_interpretability.npy', optimal_scores)
