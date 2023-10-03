@@ -238,7 +238,7 @@ else:
   if prime_model+3 == N:
     print('k ::',prime_model+3,' is the best model ', 'at theta ::: ', charac_theta_mast[prime_model+1])
   else:
-    print('k ::',prime_model+3,' is the best model ', 'between theta ::: ', charac_theta_mast[prime_model+1], ' to ::: ', charac_theta_mast[prime_model+1])
+    print('k ::',prime_model+3,' is the best model ', 'between theta ::: ', charac_theta_mast[prime_model+1], ' to ::: ', charac_theta_mast[prime_model+2])
 print(charac_theta_mast, range_theta_mast)
 np.save(results_directory + '/optimal_feature_weights.npy', np.absolute(np.array(best_parameters_converted)[prime_model+2])/np.sum(np.absolute(np.array(best_parameters_converted)[prime_model+2])))
 optimal_scores = np.array([best_unfaithfulness_master[prime_model+2], best_interp_master[prime_model+2]])
