@@ -56,7 +56,7 @@ def generate_neighborhood():
     if '-input_periodic' in sys.argv:
       import scipy.stats as sst
       periodic = np.load(sys.argv[sys.argv.index('-input_periodic') + 1])
-      assert np.all(periodic<=np.pi) and np.all(periodic>-np.pi), 'Provide periodic data in domain (-pi,pi]...'
+      assert np.all(periodic<=np.pi+0.001) and np.all(periodic>-(np.pi+0.001)), 'Provide periodic data in domain (-pi,pi]...'
       print(">>> Periodic data provided...")
       if rows == 'null':
         rows = periodic.shape[0]
