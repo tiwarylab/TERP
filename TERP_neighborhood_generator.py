@@ -49,7 +49,7 @@ def generate_neighborhood():
           feat_desc = pickle.load(fp)
         selected_features = np.array(feat_desc[0])
         tot_feat = feat_desc[1]
-        input_numeric = numeric[:,selected_features]
+        input_numeric = numeric#[:,selected_features]
       else:
         input_numeric = copy.deepcopy(numeric)
 
@@ -228,7 +228,7 @@ def generate_neighborhood():
       if '-selected_features' in sys.argv:
         temp = np.zeros((make_prediction_numeric.shape[0],numeric.shape[1]))
         temp = temp + numeric[index,:]
-        temp[:,selected_features] = make_prediction_numeric
+        temp[:,selected_features] = make_prediction_numeric[:,selected_features]
         make_prediction_numeric = copy.deepcopy(temp)
 
 
