@@ -62,6 +62,12 @@ else:
   logger1.error('Missing blackbox prediction!')
   raise Exception()
 
+if '--save_all' in sys.argv:
+  save_all = True
+  logger1.info('All files will be saved!')
+else:
+  save_all = False
+
 if '-explain_class' in sys.argv:#explain class is useful for independent classes for example multi-class images
   explain_class = int(sys.argv[sys.argv.index('-explain_class') + 1])
   logger1.info("Toatal number of classes :: " + str(pred_proba.shape[1]))
@@ -156,9 +162,10 @@ def unfaithfulness_calc(k, N, data, predict_proba, best_parameters_master):
     TERP_SGD_interp.append(interp(TERP_SGD_parameters[-1][:-1]))
     TERP_SGD_IFE = np.array(TERP_SGD_unfaithfulness)
 
-  np.save(results_directory + '/' + str(k) + '_feature_coefficients.npy', TERP_SGD_parameters)
-  np.save(results_directory + '/' + str(k) + '_interpretability_scores.npy', TERP_SGD_interp)
-  np.save(results_directory + '/' + str(k) + '_unfaithfulness_scores.npy', TERP_SGD_unfaithfulness)
+  if save_all == True:
+    np.save(results_directory + '/' + str(k) + '_feature_coefficients.npy', TERP_SGD_parameters)
+    np.save(results_directory + '/' + str(k) + '_interpretability_scores.npy', TERP_SGD_interp)
+    np.save(results_directory + '/' + str(k) + '_unfaithfulness_scores.npy', TERP_SGD_unfaithfulness)
 
   best_model = np.argsort(TERP_SGD_IFE)[0]
   best_parameters_master.append(TERP_SGD_parameters[best_model])
@@ -172,9 +179,9 @@ def unfaithfulness_calc(k, N, data, predict_proba, best_parameters_master):
 
   surrogate_pred = data@TERP_SGD_parameters[best_model][:-1]
 
-  logger1.info("Unfaithfulness :: " + str(TERP_SGD_unfaithfulness[best_model]))
-  logger1.info("Interpretability penalty:: " + str(TERP_SGD_interp[best_model]))
-  logger1.info("Relevant features :: " + str(selected_features[np.nonzero(TERP_SGD_parameters[best_model][:-1])[0]]))
+  #logger1.info("Unfaithfulness :: " + str(TERP_SGD_unfaithfulness[best_model]))
+  #logger1.info("Interpretability penalty:: " + str(TERP_SGD_interp[best_model]))
+  #logger1.info("Relevant features :: " + str(selected_features[np.nonzero(TERP_SGD_parameters[best_model][:-1])[0]]))
 best_parameters_master = []
 best_parameters_converted = []
 best_unfaithfulness_master = []
@@ -185,14 +192,14 @@ k_array = np.arange(1,k_max + 1)
 
 logger1.info('Similarity computation complete...')
 print(100*'-')
-print(100*'-')
+#print(100*'-')
 
 starttime = time.time()
 fig2, ax2 = plt.subplots()
-for k in k_array:
-  print(100*'-')
-  logger2.info('Scanning models for k :: ' + str(k))
-  print(100*'-')
+for k in tqdm(k_array):
+  #print(100*'-')
+  #logger2.info('Scanning models for k :: ' + str(k))
+  #print(100*'-')
   unfaithfulness_calc(k, N, data, predict_proba, best_parameters_master)
 
 np.save(results_directory + '/neighborhood_similarity_final.npy', weights)
@@ -235,11 +242,11 @@ else:
     range_theta_mast.append(np.array(charac_theta_mast)[i]-np.array(charac_theta_mast)[i-1])
 
   prime_model = np.argmin(np.array(range_theta_mast))
-  if prime_model+3 == N:
-    print('k ::',prime_model+3,' is the best model ', 'at theta ::: ', charac_theta_mast[prime_model+1])
-  else:
-    print('k ::',prime_model+3,' is the best model ', 'between theta ::: ', charac_theta_mast[prime_model+1], ' to ::: ', charac_theta_mast[prime_model+2])
-print(charac_theta_mast, range_theta_mast)
+#  if prime_model+3 == N:
+#    print('k ::',prime_model+3,' is the best model ', 'at theta ::: ', charac_theta_mast[prime_model+1])
+#  else:
+#    print('k ::',prime_model+3,' is the best model ', 'between theta ::: ', charac_theta_mast[prime_model+1], ' to ::: ', charac_theta_mast[prime_model+2])
+#print(charac_theta_mast, range_theta_mast)
 np.save(results_directory + '/optimal_feature_weights.npy', np.absolute(np.array(best_parameters_converted)[prime_model+2])/np.sum(np.absolute(np.array(best_parameters_converted)[prime_model+2])))
 optimal_scores = np.array([best_unfaithfulness_master[prime_model+2], best_interp_master[prime_model+2]])
 np.save(results_directory + '/optimal_scores_unfaithfulness_interpretability.npy', optimal_scores)
@@ -249,6 +256,6 @@ np.save(results_directory + '/range_theta.npy', range_theta_mast)
 endtime = time.time()
 monte_carlo_time = endtime - starttime
 
-print(100*'-')
-logger2.info('computation time :: ' + str(int(monte_carlo_time/60)) + ' min ' + "{:.3f}".format(monte_carlo_time%60) + ' sec...')
+#print(100*'-')
+logger2.info('Analysis complete! Computation time :: ' + str(int(monte_carlo_time/60)) + ' min ' + "{:.3f}".format(monte_carlo_time%60) + ' sec...')
 print(100*'-')
