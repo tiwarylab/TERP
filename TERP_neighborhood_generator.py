@@ -29,7 +29,7 @@ def generate_neighborhood():
           feat_desc = pickle.load(fp)
         selected_features = np.array(feat_desc[0])
         tot_feat = feat_desc[1]
-        input_categorical = categorical[:,selected_features]
+        input_categorical = categorical#[:,selected_features]
       else:
         input_categorical = copy.deepcopy(categorical)
       print(">>> Categorical data provided...")
@@ -70,7 +70,7 @@ def generate_neighborhood():
           feat_desc = pickle.load(fp)
         selected_features = np.array(feat_desc[0])
         tot_feat = feat_desc[1]
-        input_periodic = periodic[:,selected_features]
+        input_periodic = periodic#[:,selected_features]
       else:
         input_periodic = copy.deepcopy(periodic)
 
@@ -89,7 +89,7 @@ def generate_neighborhood():
           feat_desc = pickle.load(fp)
         selected_features = np.array(feat_desc[0])
         tot_feat = feat_desc[1]
-        input_sin = sin[:,selected_features]
+        input_sin = sin#[:,selected_features]
       else:
         input_sin = copy.deepcopy(sin)
 
@@ -108,7 +108,7 @@ def generate_neighborhood():
           feat_desc = pickle.load(fp)
         selected_features = np.array(feat_desc[0])
         tot_feat = feat_desc[1]
-        input_cos = cos[:,selected_features]
+        input_cos = cos#[:,selected_features]
       else:
         input_cos = copy.deepcopy(cos)
 
@@ -195,7 +195,7 @@ def generate_neighborhood():
       if '-selected_features' in sys.argv:
         temp = np.zeros((make_prediction_categorical.shape[0],categorical.shape[1]))
         temp = temp + categorical[index,:].reshape(-1,1)
-        temp[:,selected_features] = make_prediction_categorical
+        temp[:,selected_features] = make_prediction_categorical[:,selected_features]
         make_prediction_categorical = copy.deepcopy(temp)
       
       np.save(save_directory + '/make_prediction_categorical.npy', make_prediction_categorical)            
@@ -264,7 +264,7 @@ def generate_neighborhood():
       if '-selected_features' in sys.argv:
         temp = np.zeros((make_prediction_periodic.shape[0],periodic.shape[1]))
         temp = temp + periodic[index,:]
-        temp[:,selected_features] = make_prediction_periodic
+        temp[:,selected_features] = make_prediction_periodic[:,selected_features]
         make_prediction_periodic = copy.deepcopy(temp)
 
       np.save(save_directory + '/make_prediction_periodic.npy', make_prediction_periodic)            
@@ -303,12 +303,12 @@ def generate_neighborhood():
       if '-selected_features' in sys.argv:
         temp = np.zeros((make_prediction_sin.shape[0],sin.shape[1]))
         temp = temp + sin[index,:]
-        temp[:,selected_features] = make_prediction_sin
+        temp[:,selected_features] = make_prediction_sin[:,selected_features]
         make_prediction_sin = copy.deepcopy(temp)
 
         temp = np.zeros((make_prediction_cos.shape[0],cos.shape[1]))
         temp = temp + cos[index,:]
-        temp[:,selected_features] = make_prediction_cos
+        temp[:,selected_features] = make_prediction_cos[:,selected_features]
         make_prediction_cos = copy.deepcopy(temp)
 
       np.save(save_directory + '/make_prediction_sin.npy', make_prediction_sin)  
