@@ -196,7 +196,7 @@ print(100*'-')
 
 starttime = time.time()
 fig2, ax2 = plt.subplots()
-for k in tqdm(k_array):
+for k in tqdm(k_array, desc="Number of models constructed:: "):
   #print(100*'-')
   #logger2.info('Scanning models for k :: ' + str(k))
   #print(100*'-')
