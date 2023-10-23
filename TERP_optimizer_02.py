@@ -164,7 +164,7 @@ def unfaithfulness_calc(k, N, data, predict_proba, best_parameters_master):
 
   if save_all == True:
     np.save(results_directory + '/' + str(k) + '_feature_coefficients.npy', TERP_SGD_parameters)
-    np.save(results_directory + '/' + str(k) + '_interpretability_scores.npy', TERP_SGD_interp)
+    np.save(results_directory + '/' + str(k) + '_interpretation_entropy.npy', TERP_SGD_interp)
     np.save(results_directory + '/' + str(k) + '_unfaithfulness_scores.npy', TERP_SGD_unfaithfulness)
 
   best_model = np.argsort(TERP_SGD_IFE)[0]
@@ -198,7 +198,7 @@ for k in tqdm(k_array, desc="Number of models constructed:: "):
 np.save(results_directory + '/neighborhood_similarity_final.npy', weights)
 np.save(results_directory + '/feature_coefficients_final.npy', np.array(best_parameters_converted))
 np.save(results_directory + '/unfaithfulness_scores_final.npy', np.array(best_unfaithfulness_master))
-np.save(results_directory + '/interpretability_scores_final.npy', np.array(best_interp_master))
+np.save(results_directory + '/interpretation_entropy_final.npy', np.array(best_interp_master))
 
 def zeta(U,S,theta):
   return U + theta*S
@@ -238,7 +238,7 @@ else:
 
 np.save(results_directory + '/optimal_feature_weights.npy', np.absolute(np.array(best_parameters_converted)[prime_model+2])/np.sum(np.absolute(np.array(best_parameters_converted)[prime_model+2])))
 optimal_scores = np.array([best_unfaithfulness_master[prime_model+2], best_interp_master[prime_model+2]])
-np.save(results_directory + '/optimal_scores_unfaithfulness_interpretability.npy', optimal_scores)
+np.save(results_directory + '/optimal_scores_unfaithfulness_interpretation_entropy.npy', optimal_scores)
 np.save(results_directory + '/charac_theta.npy', charac_theta_mast)
 np.save(results_directory + '/range_theta.npy', range_theta_mast)
 ####
