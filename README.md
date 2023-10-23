@@ -39,6 +39,7 @@ All the options are the same as in step 1. However, pass the additional -selecte
 5. Obtain black-box model prediction by passing generated neighborhood saved at DATA_2/make_prediction_numeric.npy and save the predicted results in a numpy array. Rows of this array should represent datapoints and columns should represent different classes (e.g, neighborhood_state_probabilities.npy - see next step). Note A numpy array DATA_2/TERP_numeric.npy is also created which will be used in the next step
 6. Perform forward feature selection to obtain final result
 ```
+The final result is stored at TERP_results_2/optimal_feature_weights.npy. This one-dimensional array will have size equal to the number of input features and each entry represents the corresponding feature importance to a particular prediction.
 !python TERP_optimizer_02.py -TERP_numeric DATA_2/TERP_numeric.npy -pred_proba DATA_2/neighborhood_state_probabilities.npy -selected_features TERP_results/selected_features.npy
 
 Note: -pred_proba #prediction probabilites file for this step should be different from the one passed in step 3 because the neighborhood has been regenerated
