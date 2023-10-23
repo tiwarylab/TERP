@@ -9,7 +9,7 @@ TERP is a post-hoc interpretation scheme for explaining black-box AI predictions
 
 TERP supports the analysis of numeric, categorical, periodic, sin/cos, image data types. Please use the following flags when passing the corresponding data types to input: -input_numeric; -input_categorical; -input_periodic; -input_sin, -input_cos; -input_image.
 
-# Getting TERP interpretation for numeric data type involves the following steps:
+## Getting TERP interpretation for numeric data type involves the following steps:
 
 1. Feature selection: Generate neighborhood using TERP_neighborhood_generator.py
 ```
