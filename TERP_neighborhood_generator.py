@@ -13,10 +13,8 @@ def generate_neighborhood():
       save_directory = save_directory + '_2'
     os.makedirs(save_directory, exist_ok = True)
     rows = 'null'
-    # Be cautious if need to change periodicity. Some parts are hard-coded.
     period_high = np.pi
     period_low = -np.pi
-
 
 
     if '-input_categorical' in sys.argv:
@@ -25,11 +23,11 @@ def generate_neighborhood():
       categorical = categorical.reshape(rows,-1)
       if '-selected_features' in sys.argv:
         feat_dir = sys.argv[sys.argv.index('-selected_features') + 1]
-        with open(feat_dir, "rb") as fp:   # Unpickling
+        with open(feat_dir, "rb") as fp: 
           feat_desc = pickle.load(fp)
         selected_features = np.array(feat_desc[0])
         tot_feat = feat_desc[1]
-        input_categorical = categorical#[:,selected_features]
+        input_categorical = categorical
       else:
         input_categorical = copy.deepcopy(categorical)
       print(">>> Categorical data provided...")
@@ -45,11 +43,11 @@ def generate_neighborhood():
         numeric = numeric.reshape(rows,-1)
       if '-selected_features' in sys.argv:
         feat_dir = sys.argv[sys.argv.index('-selected_features') + 1]
-        with open(feat_dir, "rb") as fp:   # Unpickling
+        with open(feat_dir, "rb") as fp:
           feat_desc = pickle.load(fp)
         selected_features = np.array(feat_desc[0])
         tot_feat = feat_desc[1]
-        input_numeric = numeric#[:,selected_features]
+        input_numeric = numeric
       else:
         input_numeric = copy.deepcopy(numeric)
 
@@ -66,11 +64,11 @@ def generate_neighborhood():
         periodic = periodic.reshape(rows,-1)
       if '-selected_features' in sys.argv:
         feat_dir = sys.argv[sys.argv.index('-selected_features') + 1]
-        with open(feat_dir, "rb") as fp:   # Unpickling
+        with open(feat_dir, "rb") as fp: 
           feat_desc = pickle.load(fp)
         selected_features = np.array(feat_desc[0])
         tot_feat = feat_desc[1]
-        input_periodic = periodic#[:,selected_features]
+        input_periodic = periodic
       else:
         input_periodic = copy.deepcopy(periodic)
 
@@ -85,11 +83,11 @@ def generate_neighborhood():
         sin = sin.reshape(rows,-1)
       if '-selected_features' in sys.argv:
         feat_dir = sys.argv[sys.argv.index('-selected_features') + 1]
-        with open(feat_dir, "rb") as fp:   # Unpickling
+        with open(feat_dir, "rb") as fp:
           feat_desc = pickle.load(fp)
         selected_features = np.array(feat_desc[0])
         tot_feat = feat_desc[1]
-        input_sin = sin#[:,selected_features]
+        input_sin = sin
       else:
         input_sin = copy.deepcopy(sin)
 
@@ -104,11 +102,11 @@ def generate_neighborhood():
         cos = cos.reshape(rows,-1)
       if '-selected_features' in sys.argv:
         feat_dir = sys.argv[sys.argv.index('-selected_features') + 1]
-        with open(feat_dir, "rb") as fp:   # Unpickling
+        with open(feat_dir, "rb") as fp:
           feat_desc = pickle.load(fp)
         selected_features = np.array(feat_desc[0])
         tot_feat = feat_desc[1]
-        input_cos = cos#[:,selected_features]
+        input_cos = cos
       else:
         input_cos = copy.deepcopy(cos)
 
@@ -327,7 +325,7 @@ def generate_neighborhood():
 
       if '-selected_features' in sys.argv:
         feat_dir = sys.argv[sys.argv.index('-selected_features') + 1]
-        with open(feat_dir, "rb") as fp:   # Unpickling
+        with open(feat_dir, "rb") as fp:
           feat_desc = pickle.load(fp)
         selected_features = np.array(feat_desc[0])
         tot_feat = feat_desc[1]
@@ -347,8 +345,8 @@ def generate_neighborhood():
 
       data = np.random.randint(0, 2, num_samples * selected_features.shape[0]).reshape((num_samples, selected_features.shape[0]))
       temp[:,selected_features] = data
+      data = copy.deepcopy(temp)
       data2 = copy.deepcopy(temp)
-      data = copy.deepcopy(temp) #poorly written variable
       labels = []
       data[0, :] = 1
       for x in np.unique(segments):
