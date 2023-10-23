@@ -5,11 +5,11 @@ Thermodynamically Explainable Representations of AI and other black-box Paradigm
 TERP is a post-hoc interpretation scheme for explaining black-box AI predictions. TERP works by constructing a linear, local interpretable model that approximates the black-box in the vicinity of the instance being explained. TERP determines the accuracy-interpretability trade-off by introducing and using the concept of interpretation entropy.
 
 # Usage
->An illustrative example involving images can be found in the 'TERP_celebA.ipynb' notebook.
+*An illustrative example involving images can be found in the 'TERP_celebA.ipynb' notebook.
 
 TERP supports the analysis of numeric, categorical, periodic, sin/cos, image data types. Please use the following flags when passing the corresponding data types to input: -input_numeric; -input_categorical; -input_periodic; -input_sin, -input_cos; -input_image.
 
-Getting TERP interpretation involves the following steps:
+Getting TERP interpretation for numeric data type involves the following steps:
 
 1. Feature selection: Generate neighborhood using TERP_neighborhood_generator.py
 ```
