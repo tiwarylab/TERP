@@ -105,7 +105,7 @@ else:
 
 if '-selected_features' in sys.argv:
   feat_dir = sys.argv[sys.argv.index('-selected_features') + 1]
-  with open(feat_dir, "rb") as fp:   # Unpickling
+  with open(feat_dir, "rb") as fp:
      feat_desc = pickle.load(fp)
   selected_features = np.array(feat_desc[0])
   neighborhood_data = neighborhood_data[:, selected_features]
@@ -179,9 +179,6 @@ def unfaithfulness_calc(k, N, data, predict_proba, best_parameters_master):
 
   surrogate_pred = data@TERP_SGD_parameters[best_model][:-1]
 
-  #logger1.info("Unfaithfulness :: " + str(TERP_SGD_unfaithfulness[best_model]))
-  #logger1.info("Interpretability penalty:: " + str(TERP_SGD_interp[best_model]))
-  #logger1.info("Relevant features :: " + str(selected_features[np.nonzero(TERP_SGD_parameters[best_model][:-1])[0]]))
 best_parameters_master = []
 best_parameters_converted = []
 best_unfaithfulness_master = []
@@ -192,14 +189,10 @@ k_array = np.arange(1,k_max + 1)
 
 logger1.info('Similarity computation complete...')
 print(100*'-')
-#print(100*'-')
 
 starttime = time.time()
 fig2, ax2 = plt.subplots()
 for k in tqdm(k_array, desc="Number of models constructed:: "):
-  #print(100*'-')
-  #logger2.info('Scanning models for k :: ' + str(k))
-  #print(100*'-')
   unfaithfulness_calc(k, N, data, predict_proba, best_parameters_master)
 
 np.save(results_directory + '/neighborhood_similarity_final.npy', weights)
@@ -242,11 +235,7 @@ else:
     range_theta_mast.append(np.array(charac_theta_mast)[i]-np.array(charac_theta_mast)[i-1])
 
   prime_model = np.argmin(np.array(range_theta_mast))
-#  if prime_model+3 == N:
-#    print('k ::',prime_model+3,' is the best model ', 'at theta ::: ', charac_theta_mast[prime_model+1])
-#  else:
-#    print('k ::',prime_model+3,' is the best model ', 'between theta ::: ', charac_theta_mast[prime_model+1], ' to ::: ', charac_theta_mast[prime_model+2])
-#print(charac_theta_mast, range_theta_mast)
+
 np.save(results_directory + '/optimal_feature_weights.npy', np.absolute(np.array(best_parameters_converted)[prime_model+2])/np.sum(np.absolute(np.array(best_parameters_converted)[prime_model+2])))
 optimal_scores = np.array([best_unfaithfulness_master[prime_model+2], best_interp_master[prime_model+2]])
 np.save(results_directory + '/optimal_scores_unfaithfulness_interpretability.npy', optimal_scores)
@@ -255,7 +244,5 @@ np.save(results_directory + '/range_theta.npy', range_theta_mast)
 ####
 endtime = time.time()
 monte_carlo_time = endtime - starttime
-
-#print(100*'-')
 logger2.info('Analysis complete! Computation time :: ' + str(int(monte_carlo_time/60)) + ' min ' + "{:.3f}".format(monte_carlo_time%60) + ' sec...')
 print(100*'-')
