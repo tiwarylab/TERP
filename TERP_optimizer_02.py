@@ -13,7 +13,6 @@ import copy
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis as lda
 from sklearn.linear_model import Ridge
 import pickle
-import matplotlib.pyplot as plt
 
 results_directory = 'TERP_results_2'
 os.makedirs(results_directory, exist_ok = True)
@@ -191,7 +190,6 @@ logger1.info('Similarity computation complete...')
 print(100*'-')
 
 starttime = time.time()
-fig2, ax2 = plt.subplots()
 for k in tqdm(k_array, desc="Number of models constructed:: "):
   unfaithfulness_calc(k, N, data, predict_proba, best_parameters_master)
 
