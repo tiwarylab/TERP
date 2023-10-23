@@ -346,8 +346,8 @@ def generate_neighborhood():
 
 
       data = np.random.randint(0, 2, num_samples * selected_features.shape[0]).reshape((num_samples, selected_features.shape[0]))
-      data2 = copy.deepcopy(data)
       temp[:,selected_features] = data
+      data2 = copy.deepcopy(temp)
       data = copy.deepcopy(temp) #poorly written variable
       labels = []
       data[0, :] = 1
