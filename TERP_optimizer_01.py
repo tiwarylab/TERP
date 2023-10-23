@@ -7,7 +7,6 @@ import sys
 import sklearn.metrics as met
 import logging
 import time
-import pandas as pd
 from tqdm import tqdm
 import copy
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis as lda
