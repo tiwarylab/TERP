@@ -114,10 +114,10 @@ def selection(coefficients, threshold):
   selected_features = []
   coverage = 0
   for i in range(coefficients_abs.shape[0]):
-    coverage = coverage+np.sort(coefficients_abs)[::-1][i]/np.sum(coefficients_abs)
-    selected_features.append(np.argsort(coefficients_abs)[::-1][i])
     if i==threshold:
       break
+    coverage = coverage+np.sort(coefficients_abs)[::-1][i]/np.sum(coefficients_abs)
+    selected_features.append(np.argsort(coefficients_abs)[::-1][i])
   logger1.warning('Top ' + str(threshold) + ' features selected with weight coverage :: ' + str(coverage) + '!!')
   return selected_features
 
