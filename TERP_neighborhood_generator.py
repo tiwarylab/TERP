@@ -133,6 +133,9 @@ def generate_neighborhood():
 
     if '-image_segments_loader' in sys.argv:
       segments_loader = np.load(sys.argv[sys.argv.index('-image_segments_loader') + 1])
+    else:
+      if '-input_image' in sys.argv:
+        print(">>> No segment data provided. Default SLIC segments of 50 will be used...")
 
     if '-image_compactness' in sys.argv:
       image_compactness = int(sys.argv[sys.argv.index('-image_compactness') + 1])
@@ -322,7 +325,6 @@ def generate_neighborhood():
       if '-image_segments_loader' in sys.argv:
         segments = copy.deepcopy(segments_loader)
 
-
       if '-selected_features' in sys.argv:
         feat_dir = sys.argv[sys.argv.index('-selected_features') + 1]
         with open(feat_dir, "rb") as fp:
@@ -371,7 +373,8 @@ def generate_neighborhood():
           counter += 1
 
       np.save(save_directory + '/TERP_image.npy', data2)
-      np.save(save_directory + '/image_segments.npy', segments)
+      if '-image_segments_loader' not in sys.argv:
+        np.save(save_directory + '/image_segments.npy', segments)
 
     if type(rows) != 'str':
       print('>>> Data generation complete!')
