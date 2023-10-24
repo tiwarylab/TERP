@@ -72,22 +72,11 @@ def similarity_kernel(data, kernel_width):
   distances = met.pairwise_distances(data,data[0].reshape(1, -1),metric='euclidean').ravel()
   return np.sqrt(np.exp(-(distances ** 2) / kernel_width ** 2))
 
-if '-cutoff_trigger' in sys.argv:
-  cutoff_trigger = int(sys.argv[sys.argv.index('-cutoff_trigger') + 1])
-  logger1.info("Provided cutoff_trigger :: " + str(cutoff_trigger))
-else:
-  cutoff_trigger = 20
-  logger1.warning('Cutoff_trigger not provided. Defaulting to :: ' + str(cutoff_trigger))
-
-
 if '-cutoff' in sys.argv:
-  cutoff = float(sys.argv[sys.argv.index('-cutoff') + 1])
+  cutoff = int(sys.argv[sys.argv.index('-cutoff') + 1])
   logger1.info("Provided cutoff :: " + str(cutoff))
 else:
-  if TERP_input.shape[1]>cutoff_trigger:
-    cutoff = 0.98
-  else:
-    cutoff = 1.00
+  cutoff = 25
   logger1.warning('Cutoff not provided. Defaulting to :: ' + str(cutoff))
 
 if '--euclidean' in sys.argv:
@@ -127,8 +116,9 @@ def selection(coefficients, threshold):
   for i in range(coefficients_abs.shape[0]):
     coverage = coverage+np.sort(coefficients_abs)[::-1][i]/np.sum(coefficients_abs)
     selected_features.append(np.argsort(coefficients_abs)[::-1][i])
-    if coverage>threshold:
+    if i==threshold:
       break
+  logger1.warning('Top ' + str(threshold) + ' features selected with weight coverage :: ' + str(coverage) + '!!')
   return selected_features
 
 coefficients_selection, intercept_selection = SGDreg(predict_proba, data, labels)
