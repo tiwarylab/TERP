@@ -336,7 +336,7 @@ def generate_neighborhood():
         selected_features = np.arange(np.max(segments)+1)
         n_features = np.unique(segments).shape[0]
 
-      temp = np.zeros((num_samples, n_features))
+      temp = np.ones((num_samples, n_features))
       fig,ax = plt.subplots(figsize=(8, 8))
       ax.imshow(mark_boundaries(img_as_float(io.imread(input_image_path)), segments))
       fig.savefig(save_directory + '/superpixels.png',bbox_inches='tight',dpi=300)
@@ -347,10 +347,10 @@ def generate_neighborhood():
 
       data = np.random.randint(0, 2, num_samples * selected_features.shape[0]).reshape((num_samples, selected_features.shape[0]))
       temp[:,selected_features] = data
+      temp[0, :] = 1
       data = copy.deepcopy(temp)
       data2 = copy.deepcopy(temp)
       labels = []
-      data[0, :] = 1
       for x in np.unique(segments):
           fudged_image[segments == x] = (
               np.mean(rgb_image[segments == x][:, 0]),
