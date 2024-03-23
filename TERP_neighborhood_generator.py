@@ -321,7 +321,7 @@ def generate_neighborhood():
       from skimage import io
       os.makedirs(save_directory + '/perturbed_images', exist_ok = True)
 
-      segments = slic(input_image,n_segments=image_segments,compactness=image_compactness)-1
+      segments = slic(io.imread(input_image_path),n_segments=image_segments,compactness=image_compactness)-1
       if '-image_segments_loader' in sys.argv:
         segments = copy.deepcopy(segments_loader)
 
