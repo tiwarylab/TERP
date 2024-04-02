@@ -120,7 +120,8 @@ def generate_neighborhood():
       from PIL import Image
       from skimage.segmentation import slic, mark_boundaries, quickshift
       import matplotlib.pyplot as plt
-
+      from skimage.util import img_as_float
+      from skimage import io
       input_image_path = sys.argv[sys.argv.index('-input_image') + 1]
       input_image = Image.open(input_image_path)
       print(">>> Image data provided...")
@@ -369,7 +370,7 @@ def generate_neighborhood():
           for z in zeros:
               mask[segments == z] = True
           temp[mask] = fudged_image[mask]
-          Image.fromarray(np.uint8(temp)).convert('RGB').save(save_directory + '/perturbed_images/image_' + format(counter,'06d') + '.png')
+          Image.fromarray(np.uint8(temp)).convert('RGB').save(save_directory + '/perturbed_images/image_' + format(counter,'06d') + '.jpg')
           counter += 1
 
       np.save(save_directory + '/TERP_image.npy', data2)
