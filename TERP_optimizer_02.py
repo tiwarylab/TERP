@@ -1,3 +1,4 @@
+TERP_optimizer_02.py
 """
 TERP: Thermodynamically Explainable Representations of AI and other black-box Paradigms
 """
@@ -208,11 +209,12 @@ def charac_theta(d_U,d_S):
 
 if N<=3:
   for i in range(1,N):
+    prime_model = -1
     if best_unfaithfulness_master[i]<=best_unfaithfulness_master[i-1] - unf_threshold:
-      prime_model = copy.deepcopy(i)-2
+      prime_model = copy.deepcopy(i)-1
       continue
     else:
-      print('k ::', prime_model+3, 'is the best model')
+      print('j :: ', prime_model+1+1, ' is the best model (Too few features!Interpretation entropy is not used!)') 
       break
 
 else:
@@ -224,17 +226,17 @@ else:
     d_U_lst.append(best_unfaithfulness_master[i] - best_unfaithfulness_master[i-1])
     d_S_lst.append(best_interp_master[i] - best_interp_master[i-1])
 
-  for i in range(selected_features.shape[0]-1):
+  for i in range(selected_features.shape[0]-1): # why using selected_features as index
     charac_theta_mast.append(charac_theta(d_U_lst[i], d_S_lst[i]))
-
+  
   range_theta_mast = []
   for i in range(1,len(charac_theta_mast)):
     range_theta_mast.append(np.array(charac_theta_mast)[i]-np.array(charac_theta_mast)[i-1])
 
   prime_model = np.argmin(np.array(range_theta_mast))
 
-np.save(results_directory + '/optimal_feature_weights.npy', np.absolute(np.array(best_parameters_converted)[prime_model+2])/np.sum(np.absolute(np.array(best_parameters_converted)[prime_model+2])))
-optimal_scores = np.array([best_unfaithfulness_master[prime_model+2], best_interp_master[prime_model+2]])
+np.save(results_directory + '/optimal_feature_weights.npy', np.absolute(np.array(best_parameters_converted)[prime_model+1])/np.sum(np.absolute(np.array(best_parameters_converted)[prime_model+1])))
+optimal_scores = np.array([best_unfaithfulness_master[prime_model+1], best_interp_master[prime_model+1]])
 np.save(results_directory + '/optimal_scores_unfaithfulness_interpretation_entropy.npy', optimal_scores)
 if N>3:
   np.save(results_directory + '/charac_theta.npy', charac_theta_mast)
