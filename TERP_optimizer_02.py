@@ -1,4 +1,3 @@
-TERP_optimizer_02.py
 """
 TERP: Thermodynamically Explainable Representations of AI and other black-box Paradigms
 """
