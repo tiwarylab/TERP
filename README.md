@@ -41,3 +41,16 @@ The final result is stored at TERP_results_2/optimal_feature_weights.npy. This o
 
 Note: -blackbox_prediction #prediction probabilites file for this step should be different from the one passed in step 3 because the neighborhood has been regenerated
 ```
+If you are using this repository for running Aib9 simulations, please cite the following paper:
+```
+@article{mehdi2024thermodynamics,
+  title={Thermodynamics-inspired explanations of artificial intelligence},
+  author={Mehdi, Shams and Tiwary, Pratyush},
+  journal={Nature Communications},
+  volume={15},
+  number={1},
+  pages={7859},
+  year={2024},
+  publisher={Nature Publishing Group UK London}
+}
+```
