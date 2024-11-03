@@ -1,6 +1,7 @@
 # TERP
 Thermodynamically Explainable Representations of AI and other black-box Paradigms
 
+Detailed tutorial showing use of TERP and how to interpret results can be found here: ``` https://github.com/shams-mehdi/TERP_tutorial/tree/main ```
 
 TERP is a post-hoc interpretation scheme for explaining black-box AI predictions. TERP works by constructing a linear, local interpretable model that approximates the black-box in the vicinity of the instance being explained. TERP determines the accuracy-interpretability trade-off by introducing and using the concept of interpretation entropy. Essential packages for this python implementation are listed in requirements.txt file.
 
